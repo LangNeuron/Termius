@@ -1,7 +1,10 @@
 # main.py
 
+
+from signals import Signals
 from core import Core
 
-core = Core()
+signals = Signals()
+core = Core(signals=signals)
 
 core.run()
