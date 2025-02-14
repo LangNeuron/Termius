@@ -1,0 +1,16 @@
+{
+  plugins: {
+    "WakeWordDetection":
+      {
+        "path": "plugins.Picovoice",
+        "class": WakeWordDetection,
+        "run": run, # если модуль реализован в виде класса, то он выполняет метод класса
+        "command": WWD,
+        "config": {
+          token: ,
+          sensitivity: 0.6,
+          keywords: [jarvis],
+        }
+      }
+  }
+}
