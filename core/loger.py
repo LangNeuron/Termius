@@ -1,19 +1,21 @@
 # core/loger.py
 
 
-def get_logger():
-    from os import mkdir
-    from os.path import exists
-    import logging
-    from logging.handlers import RotatingFileHandler
-    import colorlog
+from os import mkdir
+from os.path import exists
+import logging
+from logging.handlers import RotatingFileHandler
+import colorlog
 
-    logger = logging.getLogger("logger")
+
+def get_logger(name="app", level=logging.DEBUG):
+
+    logger = logging.getLogger(name)
 
     if logger.hasHandlers():
         return logger
 
-    logger.setLevel(logging.DEBUG)  # взять уровень из yml file
+    logger.setLevel(level)  # взять уровень из yml file
 
     log_format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     formatter = logging.Formatter(log_format)
