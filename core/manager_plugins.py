@@ -1,6 +1,5 @@
 # core.manager_plugins.py
 
-
 import yaml
 from .loger import get_logger
 import importlib
@@ -62,3 +61,21 @@ class ManagerPlugins:
         temp = temp(self.signals, **self.table_plugins[name]["config"])
         temp = getattr(temp, self.table_plugins[name]["run"])
         return temp
+
+    def run_code(self, comm):
+        self.logger.debug("run code %s", comm)
+        if self.table_plugins[comm]["loaded"]:
+            self.logger.debug("code %s loaded ", comm)
+            out = self.table_plugins[comm]["loaded"]()
+            return out
+        else:
+            importlib.reload(self.table_plugins[comm]["path"])
+
+    def run(self):
+        while self.signals.ai_run:
+            try:
+                el = self.signals.get_task()
+                out = self.run_code(el)
+                self.signals.put_output(out)
+            except Exception as e:
+                self.logger.error("Error in plugins: %s", e)

@@ -45,7 +45,7 @@ class WakeWordDetection(WakeWordDetectionInterface):
         print("Listening for wake word...")
 
         try:
-            while self.signals.apps_run is True:
+            while self.signals.ai_run is True:
                 pcm = recorder.read()
                 result = self.porcupine.process(pcm)
 
@@ -54,9 +54,10 @@ class WakeWordDetection(WakeWordDetectionInterface):
                         "[%s] Detected %s"
                         % (str(datetime.now()), self.keywords[result])
                     )
-                    return 0
+                    return True
         except KeyboardInterrupt:
             print("Stopping ...")
+            return False
         finally:
             recorder.delete()
             self.porcupine.delete()
