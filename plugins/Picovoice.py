@@ -58,6 +58,3 @@ class WakeWordDetection(WakeWordDetectionInterface):
         except KeyboardInterrupt:
             print("Stopping ...")
             return False
-        finally:
-            recorder.delete()
-            self.porcupine.delete()

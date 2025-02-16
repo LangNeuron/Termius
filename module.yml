@@ -11,6 +11,11 @@
           sensitivity: 0.6,
           keywords: [jarvis],
         }
+      },
+    "OpenBrowser":
+      {
+        "path": "plugins.browser",
+        "command": [browser, open_browser]
       }
   }
 }
