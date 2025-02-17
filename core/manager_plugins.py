@@ -91,8 +91,9 @@ class ManagerPlugins:
     def search_task(self, comm):
         command, procent = process.extractOne(comm, list(self.command.keys()))
         if procent > 70:
-            print(
-                f"command {command} found {procent} %", self.command[command], sep="\n"
+            self.logger.info(
+                "Command: %s Found %s. TOTAL COMMAND: %s"
+                % (command, procent / 100, self.command[command])
             )
             return self.run_code(self.command[command])
 

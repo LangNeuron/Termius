@@ -18,11 +18,11 @@ class Core:
         while self.signals.ai_run:
             await self.signals.add_task("WWD")
             result = await self.signals.get_result()
-            print(result)
-            if result:
+            self.logger.debug(result)
+            if result["status"]:
                 await self.signals.add_task("open_browser")
                 result = await self.signals.get_result()
-                print(result)
+                self.logger.debug(result)
 
     async def run(self):
         asyncio.create_task(self.manager_plugins.run())
