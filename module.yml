@@ -15,7 +15,18 @@
     "OpenBrowser":
       {
         "path": "plugins.browser",
-        "command": [browser, open_browser]
+        "command": [открой браузер, браузер]
+      },
+    "VOSK":
+      {
+        "path": "plugins.VOSK",
+        "class": Vosk,
+        "run": run,
+        "command": STT,
+        "config": {
+          model_path: your//path//from//model//vosk,
+          languages:
+        }
       }
   }
 }

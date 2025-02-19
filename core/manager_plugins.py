@@ -56,7 +56,10 @@ class ManagerPlugins:
         try:
             if module_name in sys.modules:
                 module = importlib.reload(module_name)
-            return module
+                return module
+            else:
+                module = importlib.import_module(module_name)
+                return module
         except ModuleNotFoundError as e:
             self.logger.error("Module not found: %s", e)
             raise e
@@ -89,13 +92,15 @@ class ManagerPlugins:
             self.table_plugins[comm]["loaded"] = True
 
     def search_task(self, comm):
-        command, procent = process.extractOne(comm, list(self.command.keys()))
-        if procent > 70:
+        command, percent = process.extractOne(comm, list(self.command.keys()))
+        if percent > 70:
             self.logger.info(
                 "Command: %s Found %s. TOTAL COMMAND: %s"
-                % (command, procent / 100, self.command[command])
+                % (command, percent / 100, self.command[command])
             )
             return self.run_code(self.command[command])
+        else:
+            self.logger.error("Command not found")
 
     async def run(self):
         while self.signals.ai_run:

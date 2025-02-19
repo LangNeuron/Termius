@@ -1,8 +1,6 @@
 from core.interfaces.WakeWordDetectionInterface import WakeWordDetectionInterface
 import pvporcupine
-import struct
 from pvrecorder import PvRecorder
-from datetime import datetime
 from core.loger import get_logger
 
 
@@ -50,14 +48,14 @@ class WakeWordDetection(WakeWordDetectionInterface):
                 result = self.porcupine.process(pcm)
 
                 if result >= 0:
-                    self.logger.info(
-                        "[%s] Detected %s"
-                        % (str(datetime.now()), self.keywords[result])
-                    )
+                    self.logger.info("Detected %s" % self.keywords[result])
+                    print(f"Detected {self.keywords[result]}")
                     return {
                         "status": True,
                         "message": f"Detected {self.keywords[result]}",
                     }
         except KeyboardInterrupt as e:
             self.logger.error("Stopping ...")
+            recorder.stop()
+            recorder.delete()
             return {"status": False, "message": f"{e}"}

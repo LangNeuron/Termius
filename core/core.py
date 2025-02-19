@@ -16,13 +16,19 @@ class Core:
 
     async def _run(self):
         while self.signals.ai_run:
-            await self.signals.add_task("WWD")
-            result = await self.signals.get_result()
+            result: dict = await self.waiting_result("WWD")
             self.logger.debug(result)
             if result["status"]:
-                await self.signals.add_task("open_browser")
-                result = await self.signals.get_result()
+                result: dict = await self.waiting_result("STT")
                 self.logger.debug(result)
+                if result["status"]:
+                    result: dict = await self.waiting_result(result["message"])
+                    self.logger.debug(result)
+
+    async def waiting_result(self, task) -> dict:
+        await self.signals.add_task(task)
+        result: dict = await self.signals.get_result()
+        return result
 
     async def run(self):
         asyncio.create_task(self.manager_plugins.run())

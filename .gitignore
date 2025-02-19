@@ -3,3 +3,4 @@ logs/
 .env
 .idea/
 __pycache__/
+vosk_data/

@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 
 
-class WakeWordDetectionInterface(ABC):
-
+class SpeechToTextInterface(ABC):
     @abstractmethod
-    def __init__(self, signals, **kwargs):
+    def __init__(self, signals, **kwargs) -> None:
         self.signals = signals
         self.kwargs = kwargs
 

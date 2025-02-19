@@ -1,3 +1,3 @@
 import webbrowser
 
-webbrowser.open("")
+webbrowser.open("https://google.com")
