@@ -77,14 +77,14 @@ class ManagerPlugins:
         temp = getattr(temp, self.table_plugins[name]["run"])
         return temp
 
-    def run_code(self, comm):
+    def run_code(self, comm, **kwargs):
         self.logger.debug("run code %s", comm)
         if self.table_plugins[comm]["loaded"]:
             if self.table_plugins[comm]["loaded"] is True:
                 importlib.reload(self.loaded_module[self.table_plugins[comm]["path"]])
             else:
                 self.logger.debug("code %s loaded ", comm)
-                out = self.table_plugins[comm]["loaded"]()
+                out = self.table_plugins[comm]["loaded"](data=kwargs.get("data", None))
                 return out
         else:
             n = importlib.import_module(self.table_plugins[comm]["path"])
@@ -100,7 +100,9 @@ class ManagerPlugins:
             )
             return self.run_code(self.command[command])
         else:
-            self.logger.error("Command not found")
+            self.logger.info("Command not found: %s", comm)
+            self.logger.info("Start work llm")
+            self.run_code("LLM", data=comm)
 
     async def run(self):
         while self.signals.ai_run:

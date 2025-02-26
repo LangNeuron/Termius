@@ -33,7 +33,7 @@ class WakeWordDetection(WakeWordDetectionInterface):
         except Exception as e:
             self.logger.error("Error initializing Porcupine: %s" % e)
 
-    def run(self):
+    def run(self, **kwargs):
         """
         Запускает детекцию wake word в реальном времени.
         """

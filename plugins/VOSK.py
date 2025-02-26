@@ -51,7 +51,7 @@ class Vosk(SpeechToTextInterface):
             self.logger.debug(status, flush=True)
         self.q.put(bytes(indata))
 
-    def run(self):
+    def run(self, **kwargs):
 
         with sd.RawInputStream(
             samplerate=self.samplerate,

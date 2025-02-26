@@ -27,6 +27,17 @@
           model_path: your//path//from//model//vosk,
           languages:
         }
+      },
+    "LLM":
+      {
+        "path": "plugins.LLM",
+        "class": AiLLM,
+        "run": run,
+        "command": LLM,
+        "config": {
+          "ollama": True, # or google read doc llm settings
+          "model": your_model,
+        }
       }
   }
 }

@@ -1,7 +1,6 @@
 # core/core.py
 
 from core.loger import get_logger
-from threading import Thread
 from .manager_plugins import ManagerPlugins
 import asyncio
 
