@@ -38,6 +38,16 @@
           "ollama": True, # or google read doc llm settings
           "model": your_model,
         }
-      }
+      },
+    "TTS":
+      {
+        "path": "plugins.TTS",
+        "class": "TTS",
+        "run": run,
+        "command": TTS,
+        "config": {
+          "gtts": True # or pyttsx3 read doc tts settings
+        }
+      },
   }
 }

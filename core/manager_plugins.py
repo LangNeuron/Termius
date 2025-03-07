@@ -102,10 +102,12 @@ class ManagerPlugins:
         else:
             self.logger.info("Command not found: %s", comm)
             self.logger.info("Start work llm")
-            self.run_code("LLM", data=comm)
+            return self.run_code("LLM", data=comm)
 
     async def run(self):
         while self.signals.ai_run:
             task = await self.signals.get_task()
             result = self.search_task(task)
+            if result.get("audio", False):
+                self.run_code("TTS", data=result["data"])
             await self.signals.add_result(result)
