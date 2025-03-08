@@ -53,6 +53,8 @@ class WakeWordDetection(WakeWordDetectionInterface):
                     return {
                         "status": True,
                         "message": f"Detected {self.keywords[result]}",
+                        "audio": True,
+                        "data": "Слушаю вас господин!",
                     }
         except KeyboardInterrupt as e:
             self.logger.error("Stopping ...")

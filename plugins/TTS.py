@@ -2,6 +2,8 @@ from core.loger import get_logger
 import pyttsx3
 from gtts import gTTS
 import playsound
+import os
+
 
 class TTS:
     def __init__(self, signals, **kwargs):
@@ -45,6 +47,7 @@ class TTS:
             tts = self.gtts_engine(text=text, lang=self.language)
             tts.save(self.file_output_path)
             playsound.playsound(self.file_output_path)
+            os.remove(self.file_output_path)
         except Exception as e:
             self.logger.error(f"gTTS error: {str(e)}")
             raise

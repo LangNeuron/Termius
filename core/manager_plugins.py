@@ -82,6 +82,7 @@ class ManagerPlugins:
         if self.table_plugins[comm]["loaded"]:
             if self.table_plugins[comm]["loaded"] is True:
                 importlib.reload(self.loaded_module[self.table_plugins[comm]["path"]])
+                return
             else:
                 self.logger.debug("code %s loaded ", comm)
                 out = self.table_plugins[comm]["loaded"](data=kwargs.get("data", None))
@@ -90,6 +91,7 @@ class ManagerPlugins:
             n = importlib.import_module(self.table_plugins[comm]["path"])
             self.loaded_module[self.table_plugins[comm]["path"]] = n
             self.table_plugins[comm]["loaded"] = True
+            return
 
     def search_task(self, comm):
         command, percent = process.extractOne(comm, list(self.command.keys()))
@@ -108,6 +110,6 @@ class ManagerPlugins:
         while self.signals.ai_run:
             task = await self.signals.get_task()
             result = self.search_task(task)
-            if result.get("audio", False):
+            if isinstance(result, dict) and result.get("audio", False):
                 self.run_code("TTS", data=result["data"])
             await self.signals.add_result(result)

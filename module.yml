@@ -46,7 +46,8 @@
         "run": run,
         "command": TTS,
         "config": {
-          "gtts": True # or pyttsx3 read doc tts settings
+          "gtts": True, # or pyttsx3 read doc tts settings
+          "language": "ru"
         }
       },
   }
